@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap");
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  background-color: #4175df;
+}
+.sub-content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
+  justify-content: center;
+  gap: 40px;
+  background-color: white;
+  border-radius: 30px;
+}
+.title-survey {
+  font-size: 24;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  padding-top: 80px;
+  margin-bottom: 50px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+table {
+  margin-bottom: 50px;
+  border-collapse: collapse;
+  width: 95%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+form {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+thead {
+  background: #35a9db;
+  height: 30px;
+}
+#tables tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+#name {
+  height: 30px;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 7px;
+  padding-left: 20px;
+  border: 1px solid #b6c3dd;
+}
+#age {
+  height: 30px;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 7px;
+  padding-left: 20px;
+  border: 1px solid #b6c3dd;
+}
+#button-survey {
+  height: 30px;
+  width: 100%;
+  max-width: 100px;
+  border-radius: 7px;
+  border: none;
+  background-color: #4175df;
+  color: white;
+}
