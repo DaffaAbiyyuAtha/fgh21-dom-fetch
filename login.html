@@ -1,0 +1,86 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=for, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/assets/login.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <form id="form">
+          <div class="title">Login</div>
+          <div class="input">
+            <div class="input-name">
+              <label for="email" class="nameInput"> email </label>
+            </div>
+            <div class="text-input">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Input Your Email"
+              />
+            </div>
+          </div>
+          <div class="input">
+            <div class="input-name">
+              <label for="password" class="nameInput"> Password </label>
+            </div>
+            <div class="text-input">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Input Your Password"
+              />
+            </div>
+          </div>
+          <div class="btn">
+            <button type="submit" id="button-login">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script>
+    const form = document.getElementById("form");
+    form.addEventListener("submit", inputData);
+    async function inputData(save) {
+      save.preventDefault();
+      const email = save.target.email.value;
+      const password = save.target.password.value;
+      const data = new URLSearchParams();
+      data.append("email", email);
+      data.append("password", password);
+
+      const response = await fetch("https://st2lww-8888.csb.app/auth/login", {
+        method: "POST",
+        body: data,
+      });
+      const uploadData = await response.json();
+      if (uploadData.success === true) {
+        window.alert(uploadData.message);
+        window.location = "index.html";
+      } else {
+        window.alert(uploadData.message);
+      }
+
+      // fetch('https://st2lww-8888.csb.app/auth/login', {
+      //   method: 'POST',
+      //   body: data,
+      // });
+      // .then((response) => {
+      //   response.json().then((datas) => {
+      //     if (datas.success === true) {
+      //       window.alert(datas.massage)
+      //     } else {
+      //       window.alert(datas.massage)
+      //     }
+      //   })
+      //   .catch((err) => {
+      //   })
+      // })
+    }
+  </script>
+</html>
