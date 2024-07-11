@@ -1,5 +1,36 @@
 const form = document.getElementById("form-survey");
 const endPoint = "https://st2lww-8888.csb.app/daffa-abiyyu-atha/data";
+const tBody = document.getElementById("tbody");
+
+async function getData() {
+  const response = await fetch(endPoint);
+  const data = await response.json();
+  tBody.innerHTML = "";
+  data.results.forEach((datas) => {
+    const row = document.createElement("tr");
+    const dataName = document.createElement("td");
+    const dataAge = document.createElement("td");
+    const dataGender = document.createElement("td");
+    const dataSmoker = document.createElement("td");
+    const dataVariant = document.createElement("td");
+    dataName.textContent = datas.name;
+    dataAge.textContent = datas.age;
+    dataGender.textContent = datas.gender;
+    if (datas.isSmoker) {
+      dataSmoker.textContent = document.getElementById("yes").value;
+    } else {
+      dataSmoker.textContent = document.getElementById("no").value;
+    }
+    dataVariant.textContent = datas.cigarVariant.join("; ");
+    row.appendChild(dataName);
+    row.appendChild(dataAge);
+    row.appendChild(dataGender);
+    row.appendChild(dataSmoker);
+    row.appendChild(dataVariant);
+    tBody.appendChild(row);
+  });
+}
+getData();
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const name = event.target.name.value;
@@ -35,36 +66,5 @@ form.addEventListener("submit", async (event) => {
     });
   }
   form.reset();
+  getData();
 });
-
-const tBody = document.getElementById("tbody");
-
-async function getData() {
-  const response = await fetch(endPoint);
-  const data = await response.json();
-  tBody.innerHTML = "";
-  data.results.forEach((datas) => {
-    const row = document.createElement("tr");
-    const dataName = document.createElement("td");
-    const dataAge = document.createElement("td");
-    const dataGender = document.createElement("td");
-    const dataSmoker = document.createElement("td");
-    const dataVariant = document.createElement("td");
-    dataName.textContent = datas.name;
-    dataAge.textContent = datas.age;
-    dataGender.textContent = datas.gender;
-    if (datas.isSmoker) {
-      dataSmoker.textContent = document.getElementById("yes").value;
-    } else {
-      dataSmoker.textContent = document.getElementById("no").value;
-    }
-    dataVariant.textContent = datas.cigarVariant.join("; ");
-    row.appendChild(dataName);
-    row.appendChild(dataAge);
-    row.appendChild(dataGender);
-    row.appendChild(dataSmoker);
-    row.appendChild(dataVariant);
-    tBody.appendChild(row);
-  });
-}
-getData();

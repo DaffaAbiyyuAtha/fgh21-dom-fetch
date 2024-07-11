@@ -1,0 +1,118 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/css/survey.css" />
+    <title>Tugas Form</title>
+  </head>
+  <body>
+    <div class="content">
+      <div class="sub-content">
+        <form id="form-survey">
+          <div class="title-survey">Welcome to our survey!</div>
+          <div class="name">
+            <div class="names">
+              <label for="name">Siapa nama anda?</label>
+            </div>
+            <div class="input-name">
+              <input type="text" id="name" name="name" />
+            </div>
+          </div>
+          <div class="age">
+            <div class="ages">
+              <label for="age">Berapa umur anda?</label>
+            </div>
+            <div class="input-age">
+              <input type="number" id="age" name="age" />
+            </div>
+          </div>
+          <div class="gender">
+            <div class="gender-name">
+              <div>Apa jenis kelamin anda</div>
+            </div>
+            <div class="input-gender">
+              <input
+                type="radio"
+                name="gender"
+                id="gender1"
+                value="Laki-laki"
+              />
+              <label for="gender1">Laki-laki</label>
+              <input
+                type="radio"
+                name="gender"
+                id="gender2"
+                value="Perempuan"
+              />
+              <label for="gender2">Perempuan</label>
+            </div>
+          </div>
+          <div class="filer">
+            <div class="filter-name">
+              <div for="filter">Apakah anda perokok?</div>
+            </div>
+            <div class="input-filter">
+              <input type="radio" name="filter" id="yes" value="Ya" />
+              <label for="yes">Ya</label>
+              <input type="radio" name="filter" id="no" value="Tidak" />
+              <label for="no">Tidak</label>
+            </div>
+          </div>
+          <div class="perokok">
+            <div class="perokok-name">
+              <div>Jika anda perokok, rokok apa yang anda pernah coba?</div>
+            </div>
+            <div class="input-perokok">
+              <div class="cekbox">
+                <input
+                  type="checkbox"
+                  name="cek"
+                  id="cek1"
+                  value="Gudang Garam Filter"
+                /><label for="cek1">Gudang Garam Filter</label>
+              </div>
+              <div class="cekbox">
+                <input
+                  type="checkbox"
+                  name="cek"
+                  id="cek2"
+                  value="Lucky Strike"
+                /><label for="cek2">Lucky Strike</label>
+              </div>
+              <div class="cekbox">
+                <input
+                  type="checkbox"
+                  name="cek"
+                  id="cek3"
+                  value="Marlboro"
+                /><label for="cek3">Marlboro</label>
+              </div>
+              <div class="cekbox">
+                <input
+                  type="checkbox"
+                  name="cek"
+                  id="cek4"
+                  value="Esse"
+                /><label for="cek4">Esse</label>
+              </div>
+            </div>
+          </div>
+          <div class="button">
+            <button type="submit" id="button-survey">Save</button>
+          </div>
+        </form>
+        <table id="tables">
+          <thead id="table-head">
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Is respondent smoker?</th>
+            <th>Cigar variant that respondent have try</th>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="/assets/js/survey.js"></script>
+  </body>
+</html>
