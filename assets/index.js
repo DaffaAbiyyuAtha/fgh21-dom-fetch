@@ -1,116 +1,70 @@
-const myButton = document.getElementById("button-survey");
-const myForm = document.getElementById("form-survey");
-const tbody = document.getElementById("tbody");
-myForm.addEventListener("submit", inputData);
-async function inputData(save) {
-  save.preventDefault();
+const form = document.getElementById("form-survey");
+const endPoint = "https://st2lww-8888.csb.app/daffa-abiyyu-atha/data";
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const name = event.target.name.value;
+  const age = event.target.age.value;
+  const gender = event.target.gender.value;
+  const smoke = event.target.filter.value;
+  const cigarVariant = event.target.cek;
 
-  const nameInput = save.target.name.value;
-  const ageInput = save.target.age.value;
-
-  const dataName = document.createElement("td");
-  const row = document.createElement("tr");
-  const names = document.getElementById("name");
-  const nameValue = names.value;
-  dataName.textContent = nameValue;
-
-  const dataAge = document.createElement("td");
-  const ages = document.getElementById("age");
-  const ageValue = ages.value;
-  dataAge.textContent = ageValue;
-
-  const genders = document.getElementsByName("gender");
-  const dataGander = document.createElement("td");
-  let valueGander = "";
-
-  for (let i = 0; i < genders.length; i++) {
-    if (genders[i].checked) {
-      valueGander += genders[i].value;
-    }
-  }
-  dataGander.textContent = valueGander;
-
-  const filter = document.getElementsByName("filter");
-  const dataFilter = document.createElement("td");
-  let valueFilter = "";
-
-  for (let i = 0; i < filter.length; i++) {
-    if (filter[i].checked) {
-      valueFilter += filter[i].value;
-    }
-  }
-  dataFilter.textContent = valueFilter;
-
-  const cek = document.getElementsByName("cek");
-  const dataCek = document.createElement("td");
-  let valueCek = [];
-
-  cek.forEach((e) => {
-    if (e.checked === true) {
-      valueCek.push(e.value);
+  let cekVariant = [];
+  cigarVariant.forEach((element) => {
+    if (element.checked) {
+      cekVariant.push(element.value);
     }
   });
-
-  const valueNew = valueCek.join("; ");
-  console.log(valueNew);
-  dataCek.textContent = valueNew;
-
-  tbody.appendChild(row);
-
-  if (nameValue !== "") {
-    if (ageValue !== "") {
-      if (valueGander !== "") {
-        if (valueFilter !== "") {
-          if (valueCek !== "") {
-            row.appendChild(dataName);
-            row.appendChild(dataAge);
-            row.appendChild(dataGander);
-            row.appendChild(dataFilter);
-            row.appendChild(dataCek);
-          } else {
-            window.alert("you must fill the choice");
-          }
-        } else {
-          window.alert("Please insert your filter!");
-        }
-      } else {
-        window.alert("Please insert your gender!");
-      }
-    } else {
-      window.alert("Please insert your age!");
-    }
+  console.log(cekVariant);
+  const strVariant = cekVariant.join("; ");
+  if (name === "" || age <= 0 || gender === "" || smoke === "") {
+    window.alert("You must fill the form!");
   } else {
-    window.alert("Please insert your name!");
-  }
-  const genderUpload = valueGander;
-  const filterUpload = valueFilter;
-  const datas = new URLSearchParams();
+    const dataForm = new URLSearchParams();
+    dataForm.append("name", name);
+    dataForm.append("age", age);
+    dataForm.append("gender", gender);
+    dataForm.append("isSmoker", smoke);
+    dataForm.append("cigarVariant", strVariant);
 
-  datas.append("name", nameInput);
-  datas.append("age", ageInput);
-  datas.append("gender", genderUpload);
-  datas.append("isSmoker", filterUpload);
-  datas.append("cigarVariant", valueNew);
-
-  const response = await fetch(
-    "https://st2lww-8888.csb.app/daffa-abiyyu-atha/data",
-    {
+    for (const [key, value] of dataForm.entries()) {
+      console.log(`${key}, ${value}`);
+    }
+    const pushData = await fetch(endPoint, {
       method: "POST",
-      body: datas,
-    }
-  );
-  const uploadData = await response.json();
-  if (uploadData.success === true) {
-    alert(uploadData.message);
-  } else {
-    alert(uploadData.message);
+      body: dataForm,
+    });
   }
-  const getData = await fetch(
-    "https://st2lww-8888.csb.app/daffa-abiyyu-atha/data",
-    {
-      method: "GET",
-    }
-  );
+  form.reset();
+});
 
-  myForm.reset();
+const tBody = document.getElementById("tbody");
+
+async function getData() {
+  const response = await fetch(endPoint);
+  const data = await response.json();
+  tBody.innerHTML = "";
+  data.results.forEach((datas) => {
+    const row = document.createElement("tr");
+    const dataName = document.createElement("td");
+    const dataAge = document.createElement("td");
+    const dataGender = document.createElement("td");
+    const dataSmoker = document.createElement("td");
+    const dataVariant = document.createElement("td");
+    dataName.textContent = datas.name;
+    dataAge.textContent = datas.age;
+    dataGender.textContent = datas.gender;
+    if (datas.isSmoker) {
+      dataSmoker.textContent = document.getElementById("yes").value;
+    } else {
+      dataSmoker.textContent = document.getElementById("no").value;
+    }
+    dataVariant.textContent = datas.cigarVariant.join("; ");
+    row.appendChild(dataName);
+    row.appendChild(dataAge);
+    row.appendChild(dataGender);
+    row.appendChild(dataSmoker);
+    row.appendChild(dataVariant);
+    tBody.appendChild(row);
+  });
 }
+getData();
